@@ -11,10 +11,12 @@ import xgboost as xgb
 from prefect import flow, task
 from prefect.artifacts import create_markdown_artifact
 from datetime import date
+from prefect_email import EmailServerCredentials, email_send_message
 
 
 
-@task(retries=3, retry_delay_seconds=2, name="Read taxi data"")
+
+@task(retries=3, retry_delay_seconds=2, name="Read taxi data")
 def read_data(filename: str) -> pd.DataFrame:
     """Read data into DataFrame"""
     df = pd.read_parquet(filename)
@@ -124,7 +126,7 @@ def train_best_model(
         """
 
         create_markdown_artifact(
-            key="duration-model-report, markdown=markdown_rmse_report
+            key="duration-model-report", markdown=markdown_rmse_report
             )
 
 
@@ -133,9 +135,9 @@ def train_best_model(
 
 
 @flow
-def main_flow(
-    train_path: str = "./data/green_tripdata_2023-02.parquet",
-    val_path: str = "./data/green_tripdata_2023-03.parquet",
+def main_flow2(
+    train_path: str = "./Week_3/data/green_tripdata_2023-02.parquet",
+    val_path: str = "./Week_3/data/green_tripdata_2023-03.parquet",
 ) -> None:
     """The main training pipeline"""
 
@@ -155,4 +157,4 @@ def main_flow(
 
 
 if __name__ == "__main__":
-    main_flow()
+    main_flow2()

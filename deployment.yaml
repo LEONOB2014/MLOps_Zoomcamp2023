@@ -1,0 +1,5 @@
+deployments:
+- name: green_taxi_local_data
+  entrypoint: Week_3/orchestrate.py:main_flow
+  work_pool:
+    name: zoompool
