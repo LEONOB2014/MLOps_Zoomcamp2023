@@ -122,7 +122,7 @@ def train_best_model(
 
         | Region      | RMSE |
         |:------------|-----:|
-        | {date.today().strftime("%Y-%m")} | {rmse:.2f} |
+        | {date.today().strftime("%Y-%m")} | {rmse:.4f} |
         """
 
         create_markdown_artifact(
